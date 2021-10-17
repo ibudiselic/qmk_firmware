@@ -27,3 +27,6 @@
 
 #undef PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY
+
+// Oryx claims this is the default, but I guess not in the base QMK repo.
+#define IGNORE_MOD_TAP_INTERRUPT
