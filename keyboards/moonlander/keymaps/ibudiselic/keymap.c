@@ -1,31 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
-#include "keymap_german.h"
-#include "keymap_nordic.h"
-#include "keymap_french.h"
-#include "keymap_spanish.h"
-#include "keymap_hungarian.h"
-#include "keymap_swedish.h"
-#include "keymap_br_abnt2.h"
-#include "keymap_canadian_multilingual.h"
-#include "keymap_german_ch.h"
-#include "keymap_jp.h"
-#include "keymap_korean.h"
-#include "keymap_bepo.h"
-#include "keymap_italian.h"
-#include "keymap_slovenian.h"
-#include "keymap_lithuanian_azerty.h"
-#include "keymap_danish.h"
-#include "keymap_norwegian.h"
-#include "keymap_portuguese.h"
-#include "keymap_contributions.h"
-#include "keymap_czech.h"
-#include "keymap_romanian.h"
-#include "keymap_russian.h"
-#include "keymap_uk.h"
-#include "keymap_estonian.h"
-#include "keymap_belgian.h"
-#include "keymap_us_international.h"
 
 #define KC_MAC_UNDO LGUI(KC_Z)
 #define KC_MAC_CUT LGUI(KC_X)
@@ -70,7 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [5] = LAYOUT_moonlander(KC_AT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TAB, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO, KC_TRANSPARENT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSLASH, KC_DQUO, KC_COLN, KC_EQUAL, KC_PLUS, KC_LPRN, KC_ASTR, KC_ENTER, KC_TRANSPARENT, KC_SLASH, KC_RPRN, KC_MINUS, KC_UNDS, KC_SCOLON, KC_QUOTE, KC_GRAVE, KC_EXLM, KC_HASH, KC_DLR, KC_LCBR, KC_AMPR, KC_PIPE, KC_RCBR, KC_COMMA, KC_DOT, KC_QUES, KC_CIRC, KC_PERC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TILD, KC_SPACE, KC_DLR, KC_HASH, KC_NO, KC_NO, KC_TRANSPARENT),
 };
 
-extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) { rgb_matrix_enable(); }
@@ -108,7 +81,7 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || keyboard_config.disable_layer_led) {
+    if (keyboard_config.disable_layer_led) {
         return;
     }
     switch (biton32(layer_state)) {
