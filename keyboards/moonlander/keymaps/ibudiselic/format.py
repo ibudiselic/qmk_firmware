@@ -82,9 +82,8 @@ def _parse_keycodes(tokens: list[str]) -> list[str]:
     return codes
 
 
-def _append_layout(keycodes: list[str], ret: list[str]) -> None:
+def _append_layout(keycodes: list[str], key_len: int, ret: list[str]) -> None:
     assert len(keycodes) == LAYOUT_NUMKEYS, f'Expected {LAYOUT_NUMKEYS} keys in a Moonlander layout, found {len(keycodes)}'
-    key_len = max(len(t) for t in keycodes)
     # Space + comma.
     hole = ' '*(key_len+2)
     at = 0
@@ -111,8 +110,14 @@ def _append_layout(keycodes: list[str], ret: list[str]) -> None:
 def _fixed_keymaps(keymaps: list[str]) -> list[str]:
     tokens = _tokenize(''.join(keymaps), ' \t\r\n', '[](),')
     assert tokens[0] == '['
-    ret = []
-    at = 1
+    # We want to align all the layers in the same way, so we need to compute the max keycode length
+    # across all of them before we can generate the proper layouts.
+    key_len = 0
+
+    # header row, keycodes for each layer
+    layer_meta: list[tuple[str, list[str]]] = []
+
+    at = -1
     while True:
         try:
             p = tokens.index('LAYOUT_moonlander', at+1)
@@ -134,9 +139,13 @@ def _fixed_keymaps(keymaps: list[str]) -> list[str]:
         assert tokens[at - 1] == ','
         assert tokens[at - 2] == ')'
         keycodes = _parse_keycodes(tokens[p+2:at-2])
+        key_len = max(key_len, max(len(t) for t in keycodes))
+        layer_meta.append((f'{PRE_WS}[{tokens[p-3]}] = {tokens[p]}(', keycodes))
 
-        ret.append(f'{PRE_WS}[{tokens[p-3]}] = {tokens[p]}(')
-        _append_layout(keycodes, ret)
+    ret = []
+    for hdr, keycodes in layer_meta:
+        ret.append(hdr)
+        _append_layout(keycodes, key_len, ret)
         ret.append(f'{PRE_WS}),')
         ret.append('')
     return ret[:-1] # Remove the final empty line.
