@@ -16,12 +16,6 @@
 #define FIRMWARE_VERSION u8"bdz0V/NwmMX"
 #define RGB_MATRIX_STARTUP_SPD 60
 
-//
-//
-// Manual changes post Oryx.
-//
-//
-
 #define TAPPING_TERM 144
 #define TAPPING_TERM_PER_KEY
 
@@ -30,3 +24,5 @@
 
 // Oryx claims this is the default, but I guess not in the base QMK repo.
 #define IGNORE_MOD_TAP_INTERRUPT
+
+#define COMBO_TERM 15

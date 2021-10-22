@@ -6,11 +6,4 @@ WEBUSB_ENABLE = yes
 ORYX_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 SRC = matrix.c
-
-#
-#
-# Manual changes post Oryx.
-#
-#
-
-# COMBO_ENABLE = yes
+COMBO_ENABLE = yes

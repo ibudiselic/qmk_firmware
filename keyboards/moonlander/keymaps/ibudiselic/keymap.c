@@ -19,6 +19,8 @@ enum ibud_layers {
 };
 
 #define IBLT(l, kc) LT(IBUD_LAY_##l, kc)
+// Shifted symbol layer.
+#define IB_SHIFT_SYM LM(IBUD_LAY_SYM, MOD_LSFT)
 
 enum tap_dance_codes {
     DANCE_0,
@@ -39,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB,              KC_Q,                KC_W,                KC_E,                KC_R,                KC_T,                KC_HOME,                   KC_PGUP,             KC_Y,                KC_U,                KC_I,                KC_O,                KC_P,                KC_BSLASH,
        KC_ESCAPE,           IBLT(CTRL, KC_A),    IBLT(FKEYS, KC_S),   LSFT_T(KC_D),        IBLT(NUM, KC_F),     KC_G,                KC_END,                    KC_PGDOWN,           KC_H,                KC_J,                RSFT_T(KC_K),        KC_L,                KC_SCOLON,           RGUI_T(KC_QUOTE),
        KC_GRAVE,            KC_Z,                KC_X,                KC_C,                KC_V,                KC_B,                                                                KC_N,                KC_M,                KC_COMMA,            KC_DOT,              KC_SLASH,            _,
-       _,                   _,                   _,                   LSFT(KC_LALT),       KC_LALT,             TD(DANCE_0),                                                         TD(DANCE_2),         TD(DANCE_1),         _,                   _,                   _,                   _,
+       _,                   _,                   _,                   LSFT(KC_LALT),       LALT_T(KC_TAB),      TD(DANCE_0),                                                         TD(DANCE_2),         IB_SHIFT_SYM,        TD(DANCE_1),         _,                   _,                   _,
                                                                       LCTL_T(KC_SPACE),    C_S_T(KC_BSPACE),    LCA_T(KC_ENTER),                                                     KC_DELETE,           KC_BSPACE,           IBLT(SYM, KC_ENTER)
     ),
 
@@ -75,14 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _,                   _,                   _,                   KC_MS_UP,            _,                   _,                   _,                         _,                   _,                   KC_MS_WH_DOWN,       KC_MS_WH_UP,         _,                   _,                   _,
        _,                   _,                   KC_MS_LEFT,          KC_MS_DOWN,          KC_MS_RIGHT,         _,                   _,                         _,                   KC_LEFT,             KC_DOWN,             KC_UP,               KC_RIGHT,            _,                   _,
        _,                   _,                   _,                   _,                   KC_CAPSLOCK,         _,                                                                   _,                   _,                   _,                   _,                   _,                   _,
-       _,                   _,                   _,                   _,                   _,                   _,                                                                   _,                   TO(IBUD_LAY_BASE),   _,                   _,                   _,                   _,
+       _,                   _,                   _,                   _,                   _,                   _,                                                                   _,                   _,                   TO(IBUD_LAY_BASE),   _,                   _,                   _,
                                                                       KC_MS_BTN1,          _,                   _,                                                                   _,                   _,                   KC_MS_BTN2
     ),
 
     [IBUD_LAY_SYM] = LAYOUT_moonlander(
        KC_AT,               _,                   _,                   _,                   _,                   _,                   _,                         _,                   _,                   _,                   _,                   _,                   _,                   _,
        KC_TAB,              KC_1,                KC_2,                KC_3,                KC_4,                KC_5,                _,                         _,                   KC_6,                KC_7,                KC_8,                KC_9,                KC_0,                KC_BSLASH,
-       KC_DQUO,             KC_COLN,             KC_EQUAL,            KC_PLUS,             KC_LPRN,             KC_ASTR,             KC_ENTER,                  _,                   KC_SLASH,            KC_RPRN,             KC_MINUS,            KC_UNDS,             KC_SCOLON,           KC_QUOTE,
+       KC_DQUO,             KC_COLN,             KC_EQUAL,            LSFT_T(KC_PLUS),     KC_LPRN,             KC_ASTR,             KC_ENTER,                  _,                   KC_SLASH,            KC_RPRN,             RSFT_T(KC_MINUS),    KC_UNDS,             KC_SCOLON,           KC_QUOTE,
        KC_GRAVE,            KC_EXLM,             KC_LABK,             KC_LBRACKET,         KC_LCBR,             KC_AMPR,                                                             KC_PIPE,             KC_RCBR,             KC_RBRACKET,         KC_RABK,             KC_QUES,             KC_CIRC,
        KC_PERC,             _,                   _,                   _,                   _,                   _,                                                                   _,                   _,                   _,                   _,                   _,                   KC_TILD,
                                                                       KC_SPACE,            _,                   _,                                                                   _,                   _,                   _
@@ -250,12 +252,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 // clang-format on
 
-//
-//
-// Manual changes post Oryx.
-//
-//
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCTL_T(KC_SPACE):
@@ -276,27 +272,16 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// Note: the rules.mk file also needs to be changed to add combos back.
-//
-// enum combo_events {
-//     CMB_LBRACKET,  // [
-//     CMB_RBRACKET,
-//     CMB_LABK,  // <
-//     CMB_RABK,
-//     COMBO_LENGTH,
-// };
-//
-// #undef COMBO_COUNT
-// uint16_t COMBO_LEN = COMBO_LENGTH;
-//
-// const uint16_t PROGMEM cmb_lbracket[] = {KC_PLUS, KC_LPRN, COMBO_END};
-// const uint16_t PROGMEM cmb_rbracket[] = {KC_MINUS, KC_RPRN, COMBO_END};
-// const uint16_t PROGMEM cmb_labk[]     = {KC_DLR, KC_LCBR, COMBO_END};
-// const uint16_t PROGMEM cmb_rabk[]     = {KC_COMMA, KC_RCBR, COMBO_END};
-//
-// combo_t key_combos[] = {
-//     [CMB_LBRACKET] = COMBO(cmb_lbracket, KC_LBRACKET),
-//     [CMB_RBRACKET] = COMBO(cmb_rbracket, KC_RBRACKET),
-//     [CMB_LABK]     = COMBO(cmb_labk, KC_LABK),
-//     [CMB_RABK]     = COMBO(cmb_rabk, KC_RABK),
-// };
+enum combo_events {
+    CMB_ESC,
+    COMBO_LENGTH,
+};
+
+#undef COMBO_COUNT
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM cmb_esc[] = {KC_J, RSFT_T(KC_K), COMBO_END};
+
+combo_t key_combos[] = {
+    [CMB_ESC] = COMBO(cmb_esc, KC_ESCAPE),
+};
