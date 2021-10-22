@@ -23,6 +23,18 @@ enum custom_keycodes {
     ST_MACRO_0,
 };
 
+enum ibud_layers {
+    IBUD_LAY_BASE,
+    IBUD_LAY_GAME,
+    IBUD_LAY_NUM,
+    IBUD_LAY_FKEYS,
+    IBUD_LAY_CTRL,
+    IBUD_LAY_SYM,
+    IBUD_LAYER_TOTAL_COUNT,
+};
+
+#define IBLT(l, kc) LT(IBUD_LAY_##l, kc)
+
 enum tap_dance_codes {
     DANCE_0,
     DANCE_1,
@@ -34,16 +46,16 @@ enum tap_dance_codes {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_moonlander(
-       KC_AT,            KC_1,             KC_2,             KC_3,             KC_4,             KC_5,             KC_F4,                  KC_F5,            KC_6,             KC_7,             KC_8,             KC_9,             KC_0,             KC_MINUS,
-       KC_TAB,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,             KC_HOME,                KC_PGUP,          KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             KC_BSLASH,
-       KC_ESCAPE,        LT(4, KC_A),      LT(3, KC_S),      LSFT_T(KC_D),     LT(2, KC_F),      KC_G,             KC_END,                 KC_PGDOWN,        KC_H,             KC_J,             RSFT_T(KC_K),     KC_L,             KC_SCOLON,        RGUI_T(KC_QUOTE),
-       KC_GRAVE,         KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,                                                       KC_N,             KC_M,             KC_COMMA,         KC_DOT,           KC_SLASH,         KC_EQUAL,
-       KC_NO,            KC_F3,            KC_F2,            LSFT(KC_LALT),    KC_LALT,          TD(DANCE_0),                                                TD(DANCE_2),      TD(DANCE_1),      KC_F1,            KC_LBRACKET,      KC_RBRACKET,      KC_NO,
-                                                             LCTL_T(KC_SPACE), C_S_T(KC_BSPACE), LCA_T(KC_ENTER),                                            KC_DELETE,        KC_BSPACE,        LT(5, KC_ENTER)
+    [IBUD_LAY_BASE] = LAYOUT_moonlander(
+       KC_AT,               KC_1,                KC_2,                KC_3,                KC_4,                KC_5,                KC_F4,                     KC_F5,               KC_6,                KC_7,                KC_8,                KC_9,                KC_0,                KC_MINUS,
+       KC_TAB,              KC_Q,                KC_W,                KC_E,                KC_R,                KC_T,                KC_HOME,                   KC_PGUP,             KC_Y,                KC_U,                KC_I,                KC_O,                KC_P,                KC_BSLASH,
+       KC_ESCAPE,           IBLT(CTRL, KC_A),    IBLT(FKEYS, KC_S),   LSFT_T(KC_D),        IBLT(NUM, KC_F),     KC_G,                KC_END,                    KC_PGDOWN,           KC_H,                KC_J,                RSFT_T(KC_K),        KC_L,                KC_SCOLON,           RGUI_T(KC_QUOTE),
+       KC_GRAVE,            KC_Z,                KC_X,                KC_C,                KC_V,                KC_B,                                                                KC_N,                KC_M,                KC_COMMA,            KC_DOT,              KC_SLASH,            KC_EQUAL,
+       KC_NO,               KC_F3,               KC_F2,               LSFT(KC_LALT),       KC_LALT,             TD(DANCE_0),                                                         TD(DANCE_2),         TD(DANCE_1),         KC_F1,               KC_LBRACKET,         KC_RBRACKET,         KC_NO,
+                                                                      LCTL_T(KC_SPACE),    C_S_T(KC_BSPACE),    LCA_T(KC_ENTER),                                                     KC_DELETE,           KC_BSPACE,           IBLT(SYM, KC_ENTER)
     ),
 
-    [1] = LAYOUT_moonlander(
+    [IBUD_LAY_GAME] = LAYOUT_moonlander(
        KC_F6,            KC_1,             KC_2,             KC_3,             KC_4,             KC_5,             KC_F4,                  KC_F5,            KC_6,             KC_7,             KC_8,             KC_9,             KC_0,             KC_MINUS,
        KC_TAB,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,             KC_HOME,                KC_PGUP,          KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             KC_BSLASH,
        KC_ESCAPE,        KC_A,             KC_S,             KC_D,             KC_F,             KC_G,             KC_END,                 KC_PGDOWN,        KC_H,             KC_J,             RSFT_T(KC_K),     KC_L,             KC_SCOLON,        RGUI_T(KC_QUOTE),
@@ -52,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                              KC_SPACE,         KC_F2,            KC_F1,                                                      KC_DELETE,        KC_BSPACE,        KC_ENTER
     ),
 
-    [2] = LAYOUT_moonlander(
+    [IBUD_LAY_NUM] = LAYOUT_moonlander(
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_NUMLOCK,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_ASTR,        KC_PLUS,        KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_SLASH,       KC_MINUS,       KC_4,           KC_5,           KC_6,           KC_DOT,         KC_TRANSPARENT,
@@ -61,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
-    [3] = LAYOUT_moonlander(
+    [IBUD_LAY_FKEYS] = LAYOUT_moonlander(
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_F11,         KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_F12,         KC_F4,          KC_F5,          KC_F6,          KC_TRANSPARENT, KC_TRANSPARENT,
@@ -70,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
-    [4] = LAYOUT_moonlander(
+    [IBUD_LAY_CTRL] = LAYOUT_moonlander(
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_PSCREEN,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RESET,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_UP,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_TRANSPARENT, KC_TRANSPARENT,       KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
@@ -79,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_MS_BTN1,     KC_TRANSPARENT, KC_TRANSPARENT,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN2
     ),
 
-    [5] = LAYOUT_moonlander(
+    [IBUD_LAY_SYM] = LAYOUT_moonlander(
        KC_AT,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
        KC_TAB,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_NO,                KC_TRANSPARENT, KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_BSLASH,
        KC_DQUO,        KC_COLN,        KC_EQUAL,       KC_PLUS,        KC_LPRN,        KC_ASTR,        KC_ENTER,             KC_TRANSPARENT, KC_SLASH,       KC_RPRN,        KC_MINUS,       KC_UNDS,        KC_SCOLON,      KC_QUOTE,
@@ -95,17 +107,17 @@ extern rgb_config_t rgb_matrix_config;
 void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [0] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_BASE] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
-    [1] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_GAME] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
-    [2] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {255, 220, 201}, {35, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {141, 255, 233}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {35, 255, 255}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {141, 255, 233}, {35, 255, 255}, {35, 255, 255}, {35, 255, 255}, {0, 0, 0}, {35, 255, 255}, {35, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_NUM] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {255, 220, 201}, {35, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {141, 255, 233}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {35, 255, 255}, {0, 0, 0}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {255, 220, 201}, {141, 255, 233}, {35, 255, 255}, {35, 255, 255}, {35, 255, 255}, {0, 0, 0}, {35, 255, 255}, {35, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
-    [3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {252, 119, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {252, 119, 255}, {0, 0, 0}, {252, 119, 255}, {252, 119, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_FKEYS] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {252, 119, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {252, 119, 255}, {0, 0, 0}, {252, 119, 255}, {252, 119, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
-    [4] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {32, 176, 255}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {50, 153, 244}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {134, 255, 213}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {134, 255, 213}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {134, 255, 213}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {134, 255, 213}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_CTRL] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {32, 176, 255}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {50, 153, 244}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {134, 255, 213}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {134, 255, 213}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {134, 255, 213}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {134, 255, 213}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
-    [5] = {{0, 183, 238}, {35, 255, 255}, {0, 183, 238}, {0, 183, 238}, {141, 255, 233}, {0, 0, 0}, {0, 0, 255}, {169, 120, 255}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {85, 203, 158}, {14, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {105, 255, 255}, {0, 0, 0}, {0, 0, 0}, {35, 255, 255}, {35, 255, 255}, {0, 183, 238}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {105, 255, 255}, {105, 255, 255}, {0, 0, 0}, {0, 0, 255}, {169, 120, 255}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {0, 0, 0}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {85, 203, 158}, {14, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {105, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    [IBUD_LAY_SYM] = {{0, 183, 238}, {35, 255, 255}, {0, 183, 238}, {0, 183, 238}, {141, 255, 233}, {0, 0, 0}, {0, 0, 255}, {169, 120, 255}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {85, 203, 158}, {14, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {105, 255, 255}, {0, 0, 0}, {0, 0, 0}, {35, 255, 255}, {35, 255, 255}, {0, 183, 238}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {105, 255, 255}, {105, 255, 255}, {0, 0, 0}, {0, 0, 255}, {169, 120, 255}, {85, 203, 158}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {0, 0, 0}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {85, 203, 158}, {14, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 255}, {141, 255, 233}, {105, 255, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
 
 };
 
@@ -130,28 +142,11 @@ void rgb_matrix_indicators_user(void) {
     if (keyboard_config.disable_layer_led) {
         return;
     }
-    switch (biton32(layer_state)) {
-        case 0:
-            set_layer_color(0);
-            break;
-        case 1:
-            set_layer_color(1);
-            break;
-        case 2:
-            set_layer_color(2);
-            break;
-        case 3:
-            set_layer_color(3);
-            break;
-        case 4:
-            set_layer_color(4);
-            break;
-        case 5:
-            set_layer_color(5);
-            break;
-        default:
-            if (rgb_matrix_get_flags() == LED_FLAG_NONE) rgb_matrix_set_color_all(0, 0, 0);
-            break;
+    uint8_t layer_num = biton32(layer_state);
+    if (layer_num < IBUD_LAYER_TOTAL_COUNT) {
+        set_layer_color(layer_num);
+    } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        rgb_matrix_set_color_all(0, 0, 0);
     }
 }
 
@@ -206,7 +201,7 @@ void dance_0_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
         case DOUBLE_TAP:
-            layer_move(2);
+            layer_move(IBUD_LAY_NUM);
             break;
     }
 }
@@ -223,7 +218,7 @@ void dance_1_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
         case DOUBLE_TAP:
-            layer_move(4);
+            layer_move(IBUD_LAY_CTRL);
             break;
     }
 }
@@ -240,7 +235,7 @@ void dance_2_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[2].step = dance_step(state);
     switch (dance_state[2].step) {
         case DOUBLE_TAP:
-            layer_move(1);
+            layer_move(IBUD_LAY_GAME);
             break;
     }
 }
@@ -257,7 +252,7 @@ void dance_3_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[3].step = dance_step(state);
     switch (dance_state[3].step) {
         case DOUBLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
     }
 }
@@ -274,13 +269,13 @@ void dance_4_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[4].step = dance_step(state);
     switch (dance_state[4].step) {
         case SINGLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
         case DOUBLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
         case DOUBLE_SINGLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
     }
 }
@@ -297,13 +292,13 @@ void dance_5_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[5].step = dance_step(state);
     switch (dance_state[5].step) {
         case SINGLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
         case DOUBLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
         case DOUBLE_SINGLE_TAP:
-            layer_move(0);
+            layer_move(IBUD_LAY_BASE);
             break;
     }
 }
