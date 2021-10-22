@@ -298,6 +298,8 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// Note: the rules.mk file also needs to be changed to add combos back.
+//
 // enum combo_events {
 //     CMB_LBRACKET,  // [
 //     CMB_RBRACKET,

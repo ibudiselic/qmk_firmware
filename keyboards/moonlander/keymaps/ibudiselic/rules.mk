@@ -13,4 +13,4 @@ SRC = matrix.c
 #
 #
 
-COMBO_ENABLE = yes
+# COMBO_ENABLE = yes
