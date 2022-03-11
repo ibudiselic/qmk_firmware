@@ -35,6 +35,9 @@ enum tap_dance_codes {
 #error underscore is already defined
 #endif
 #define _ KC_NO
+
+#define IB_KC_TP KC_TRANSPARENT
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IBUD_LAY_BASE] = LAYOUT_moonlander(
        KC_AT,               KC_1,                KC_2,                KC_3,                KC_4,                KC_5,                KC_F4,                     KC_F5,               KC_6,                KC_7,                KC_8,                KC_9,                KC_0,                _,
@@ -55,12 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [IBUD_LAY_NUM] = LAYOUT_moonlander(
-       _,                   _,                   _,                   _,                   _,                   _,                   _,                         _,                   KC_NUMLOCK,          _,                   _,                   _,                   _,                   _,
-       _,                   _,                   _,                   _,                   _,                   _,                   _,                         KC_ASTR,             KC_PLUS,             KC_7,                KC_8,                KC_9,                KC_0,                _,
-       _,                   _,                   _,                   _,                   _,                   _,                   _,                         KC_SLASH,            KC_MINUS,            KC_4,                KC_5,                KC_6,                KC_DOT,              _,
-       _,                   _,                   _,                   _,                   _,                   _,                                                                   KC_EQUAL,            KC_1,                KC_2,                KC_3,                _,                   _,
-       _,                   _,                   _,                   _,                   _,                   TO(IBUD_LAY_BASE),                                                   _,                   KC_0,                KC_DOT,              ST_MACRO_0,          _,                   _,
-                                                                      _,                   _,                   _,                                                                   _,                   _,                   _
+       IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,                  IB_KC_TP,            KC_NUMLOCK,          IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,
+       IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,                  KC_ASTR,             KC_PLUS,             KC_7,                KC_8,                KC_9,                KC_0,                IB_KC_TP,
+       IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,                  KC_SLASH,            KC_MINUS,            KC_4,                KC_5,                KC_6,                KC_DOT,              IB_KC_TP,
+       IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,                                                            KC_EQUAL,            KC_1,                KC_2,                KC_3,                IB_KC_TP,            IB_KC_TP,
+       IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            IB_KC_TP,            TO(IBUD_LAY_BASE),                                                   IB_KC_TP,            KC_0,                KC_DOT,              ST_MACRO_0,          IB_KC_TP,            IB_KC_TP,
+                                                                      IB_KC_TP,            IB_KC_TP,            IB_KC_TP,                                                            IB_KC_TP,            IB_KC_TP,            IB_KC_TP
     ),
 
     [IBUD_LAY_FKEYS] = LAYOUT_moonlander(
@@ -95,7 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 extern rgb_config_t rgb_matrix_config;
 
-void keyboard_post_init_user(void) { rgb_matrix_enable(); }
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable();
+}
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [IBUD_LAY_BASE] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 183, 238}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
