@@ -4,7 +4,7 @@
 #define MOON_LED_LEVEL LED_LEVEL
 
 enum custom_keycodes {
-    RGB_SLD = ML_SAFE_RANGE,
+    RGB_SLD = SAFE_RANGE,
     ST_MACRO_0,
 };
 
