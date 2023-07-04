@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [IBUD_LAY_CTRL] = LAYOUT_moonlander(
-       _,                   _,                   _,                   _,                   _,                   _,                   _,                         KC_PRINT_SCREEN,     _,                   _,                   _,                   _,                   _,                   RESET,
+       _,                   _,                   _,                   _,                   _,                   _,                   _,                         KC_PRINT_SCREEN,     _,                   _,                   _,                   _,                   _,                   QK_BOOTLOADER,
        _,                   _,                   _,                   KC_MS_UP,            _,                   _,                   _,                         _,                   _,                   KC_MS_WH_DOWN,       KC_MS_WH_UP,         _,                   _,                   _,
        _,                   _,                   KC_MS_LEFT,          KC_MS_DOWN,          KC_MS_RIGHT,         _,                   _,                         _,                   KC_LEFT,             KC_DOWN,             KC_UP,               KC_RIGHT,            _,                   _,
        _,                   _,                   _,                   _,                   KC_CAPS_LOCK,        _,                                                                   _,                   _,                   _,                   _,                   _,                   _,
