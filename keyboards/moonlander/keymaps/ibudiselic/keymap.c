@@ -13,11 +13,14 @@ enum ibud_layers {
     IBUD_LAY_GAME,
     // SF6 has some fixed keyboard bindings that interfere with user bindings, so it needs
     // a special layer to get sane behavior...
-    // This layer is only meant to be activated on top of the game layer, and
-    // is mostly transparent with the exception of a few changes:
-    // - B and M are swapped (this is necessary because SF6 has some hard-coded
-    //   bindings for the B key in the combo training, which interfere with using
-    //   B as the jump key)
+    // This layer is only meant to be activated on top of the game layer, and is mostly transparent
+    // with the exception of a few changes:
+    // - B and M are swapped (this is necessary because SF6 has some hard-coded bindings for the B
+    //   key in the combo training, which interfere with using B as the jump key)
+    // - The K key doesn't have the RSFT_T mod-tap, but is just a plain K so it can be used in the
+    //   game.
+    // - The semicolon key is mapped to F12 so it can be bound in the game (for some reason, the
+    //   semicolon can't be bound).
     IBUD_LAY_GAME_SF6,
     IBUD_LAY_NUM,
     IBUD_LAY_FKEYS,
@@ -59,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IBUD_LAY_GAME] = LAYOUT_moonlander(
        KC_F6,                 KC_1,                  KC_2,                  KC_3,                  KC_4,                  KC_5,                  KC_F4,                       KC_F5,                 KC_6,                  KC_7,                  KC_8,                  KC_9,                  KC_0,                  _,
        KC_TAB,                KC_Q,                  KC_W,                  KC_E,                  KC_R,                  KC_T,                  KC_HOME,                     KC_PGUP,               KC_Y,                  KC_U,                  KC_I,                  KC_O,                  KC_P,                  KC_BACKSLASH,
-       KC_ESCAPE,             KC_A,                  KC_S,                  KC_D,                  KC_F,                  KC_G,                  KC_END,                      KC_PAGE_DOWN,          KC_H,                  KC_J,                  KC_K,                  KC_L,                  KC_F12,                RGUI_T(KC_QUOTE),
+       KC_ESCAPE,             KC_A,                  KC_S,                  KC_D,                  KC_F,                  KC_G,                  KC_END,                      KC_PAGE_DOWN,          KC_H,                  KC_J,                  RSFT_T(KC_K),                  KC_L,                  KC_SEMICOLON,                RGUI_T(KC_QUOTE),
        KC_LEFT_SHIFT,         KC_Z,                  KC_X,                  KC_C,                  KC_V,                  KC_B,                                                                      KC_N,                  KC_M,                  KC_COMMA,              KC_DOT,                KC_SLASH,              KC_RIGHT_SHIFT,
        KC_F7,                 KC_F3,                 KC_F2,                 LCTL(KC_LALT),         KC_LALT,               KC_F8,                                                                     TD(DANCE_3),           _,                     TG(IBUD_LAY_GAME_SF6), _,                     _,                     KC_RIGHT_CTRL,
                                                                             KC_SPACE,              KC_F2,                 KC_F1,                                                                     KC_DELETE,             KC_BACKSPACE,          KC_ENTER
@@ -68,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IBUD_LAY_GAME_SF6] = LAYOUT_moonlander(
        IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                    IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,
        IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                    IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,
-       IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                    IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,
+       IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                    IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              KC_K,              IB_KC_TP,              KC_F12,              IB_KC_TP,
        IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              KC_M,                                                                      IB_KC_TP,              KC_B,                  IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,
        IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                                                                  IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,              IB_KC_TP,
                                                                             IB_KC_TP,              IB_KC_TP,              IB_KC_TP,                                                                  IB_KC_TP,              IB_KC_TP,              IB_KC_TP
