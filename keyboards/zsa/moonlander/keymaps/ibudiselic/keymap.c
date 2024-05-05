@@ -9,7 +9,10 @@ enum custom_keycodes {
 };
 
 enum ibud_layers {
+    // Base layer for typing. Has various keys that do different things on tap and hold.
     IBUD_LAY_BASE,
+    // Simplified layer similar to a normal keyboard (without any hold functionality), with extra
+    // bindable keys on the left half.
     IBUD_LAY_GAME,
     // SF6 has some fixed keyboard bindings that interfere with user bindings, so it needs
     // a special layer to get sane behavior...
@@ -22,9 +25,13 @@ enum ibud_layers {
     // - The semicolon key is mapped to F12 so it can be bound in the game (for some reason, the
     //   semicolon can't be bound).
     IBUD_LAY_GAME_SF6,
+    // Numpad.
     IBUD_LAY_NUM,
+    // F-keys overlaid on the numpad area.
     IBUD_LAY_FKEYS,
+    // Control layer for arrow keys, mouse movement and other misc things.
     IBUD_LAY_CTRL,
+    // Main symbol layer.
     IBUD_LAY_SYM,
     IBUD_LAYER_TOTAL_COUNT,
 };
@@ -33,6 +40,8 @@ enum ibud_layers {
 // Shifted symbol layer.
 #define IB_SHIFT_SYM LM(IBUD_LAY_SYM, MOD_LSFT)
 
+// See tap dance functions towards the end of the file for documentation about what each dance
+// code does.
 enum tap_dance_codes {
     DANCE_0,
     DANCE_1,
@@ -47,6 +56,8 @@ enum tap_dance_codes {
 #endif
 #define _ KC_NO
 
+// The last row corresponds to the thumb clusters except the red triangle keys, which are the
+// innermost keys in the penultimate row.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IBUD_LAY_BASE] = LAYOUT_moonlander(
        KC_AT,                 KC_1,                  KC_2,                  KC_3,                  KC_4,                  KC_5,                  KC_F4,                       KC_F5,                 KC_6,                  KC_7,                  KC_8,                  KC_9,                  KC_0,                  _,
@@ -211,6 +222,7 @@ uint8_t dance_step(tap_dance_state_t *state) {
     return MORE_TAPS;
 }
 
+// Dance 0 - double tap switches on the numpad layer.
 void dance_0_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
@@ -226,6 +238,7 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
     dance_state[0].step = 0;
 }
 
+// Dance 1 - double tap switches on the control layer.
 void dance_1_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
@@ -241,6 +254,7 @@ void dance_1_reset(tap_dance_state_t *state, void *user_data) {
     dance_state[1].step = 0;
 }
 
+// Dance 2 - double tap switches on the game layer.
 void dance_2_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[2].step = dance_step(state);
     switch (dance_state[2].step) {
@@ -256,6 +270,7 @@ void dance_2_reset(tap_dance_state_t *state, void *user_data) {
     dance_state[2].step = 0;
 }
 
+// Dance 3 - double tap switches on the base layer.
 void dance_3_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[3].step = dance_step(state);
     switch (dance_state[3].step) {
@@ -308,6 +323,7 @@ enum combo_events {
 #undef COMBO_COUNT
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
+// jk = escape
 const uint16_t PROGMEM cmb_esc[] = {KC_J, RSFT_T(KC_K), COMBO_END};
 
 combo_t key_combos[] = {
