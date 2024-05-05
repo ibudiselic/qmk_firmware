@@ -7,3 +7,8 @@ ORYX_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 SRC = matrix.c
 COMBO_ENABLE = yes
+# See https://github.com/qmk/qmk_firmware/blob/master/docs/feature_debounce_type.md.
+# The debounce time is defined in config.h.
+# The default algorithm is sym_defer_g (symmetric defer global - swithc to per-key so that a higher
+# delay doesn't impact typing much.
+DEBOUNCE_TYPE = sym_defer_pk

@@ -23,3 +23,7 @@
 #define PERMISSIVE_HOLD_PER_KEY
 
 #define COMBO_TERM 15
+
+// Default is 5 (unit is ms). See https://github.com/qmk/qmk_firmware/blob/master/docs/feature_debounce_type.md.
+// The algorithm is defined in rules.mk.
+#define DEBOUNCE 10
