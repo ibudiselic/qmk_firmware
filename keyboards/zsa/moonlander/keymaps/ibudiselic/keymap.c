@@ -37,8 +37,6 @@ enum ibud_layers {
 };
 
 #define IBLT(l, kc) LT(IBUD_LAY_##l, kc)
-// Shifted symbol layer.
-#define IB_SHIFT_SYM LM(IBUD_LAY_SYM, MOD_LSFT)
 
 // See tap dance functions towards the end of the file for documentation about what each dance
 // code does.
@@ -63,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_AT,                 KC_1,                  KC_2,                  KC_3,                  KC_4,                  KC_5,                  KC_F4,                       KC_F5,                 KC_6,                  KC_7,                  KC_8,                  KC_9,                  KC_0,                  _,
        KC_TAB,                KC_Q,                  KC_W,                  KC_E,                  KC_R,                  KC_T,                  KC_HOME,                     KC_PGUP,               KC_Y,                  KC_U,                  KC_I,                  KC_O,                  KC_P,                  KC_BACKSLASH,
        KC_ESCAPE,             IBLT(CTRL, KC_A),      IBLT(FKEYS, KC_S),     LSFT_T(KC_D),          IBLT(NUM, KC_F),       KC_G,                  KC_END,                      KC_PAGE_DOWN,          KC_H,                  KC_J,                  RSFT_T(KC_K),          KC_L,                  KC_SEMICOLON,          RGUI_T(KC_QUOTE),
-       KC_GRAVE,              KC_Z,                  KC_X,                  KC_C,                  KC_V,                  KC_B,                                                                      KC_N,                  KC_M,                  KC_COMMA,              KC_DOT,                KC_SLASH,              _,
-       _,                     _,                     _,                     LSFT(KC_LALT),         LALT_T(KC_TAB),        TD(DANCE_0),                                                               TD(DANCE_2),           IB_SHIFT_SYM,          TD(DANCE_1),           _,                     _,                     _,
+       KC_GRAVE,              KC_Z,                  KC_X,                  KC_C,                  KC_V,                  KC_B,                                                                      KC_N,                  KC_M,                  KC_COMMA,              KC_DOT,                KC_SLASH,              KC_CIRC,
+       _,                     _,                     _,                     LSFT(KC_LALT),         LALT_T(KC_TAB),        TD(DANCE_0),                                                               TD(DANCE_2),           _,                     TD(DANCE_1),           _,                     _,                     KC_TILD,
                                                                             LCTL_T(KC_SPACE),      C_S_T(KC_BACKSPACE),   LCA_T(KC_ENTER),                                                           KC_DELETE,             KC_BACKSPACE,          IBLT(SYM, KC_ENTER)
     ),
 
@@ -73,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB,                KC_1,                  KC_2,                  KC_3,                  KC_4,                  KC_5,                  _,                           _,                     KC_6,                  KC_7,                  KC_8,                  KC_9,                  KC_0,                  KC_BACKSLASH,
        KC_DQUO,               KC_COLN,               KC_EQUAL,              KC_PLUS,               KC_LPRN,               KC_ASTR,               KC_ENTER,                    _,                     KC_SLASH,              KC_RPRN,               KC_MINUS,              KC_UNDS,               KC_SEMICOLON,          KC_QUOTE,
        KC_GRAVE,              KC_EXLM,               KC_LABK,               KC_LEFT_BRACKET,       KC_LCBR,               KC_AMPR,                                                                   KC_PIPE,               KC_RCBR,               KC_RIGHT_BRACKET,      KC_RABK,               KC_QUES,               KC_CIRC,
-       KC_PERC,               _,                     _,                     _,                     _,                     _,                                                                         _,                     _,                     _,                     _,                     _,                     KC_TILD,
+       KC_PERC,               _,                     _,                     _,                     KC_PERC,               KC_DQUO,                                                                   _,                     KC_AT,                 KC_HASH,               KC_DOLLAR,             KC_DOT,                KC_TILD,
                                                                             KC_SPACE,              _,                     _,                                                                         _,                     _,                     _
     ),
 
